@@ -4,12 +4,13 @@ import { sampleData } from '@/data/sampleData'
 
 const REFRESH_INTERVAL = 30000 // 30 seconds
 
-// Set this to your real API endpoint when ready
-// Option A: Carlo provides a JSON endpoint via cron job
-// Option B: Local HTTP server endpoint
-// Option C: Static JSON file served via nginx/Apache
-// @ts-ignore - Vite env
-const API_ENDPOINT = (import.meta as any).env?.VITE_API_ENDPOINT || null
+// GitHub raw URL for live status data
+// This file gets updated by the collect-status.sh cron job
+const LIVE_DATA_URL = 'https://raw.githubusercontent.com/minicarlo/clawdi-status/main/status.json'
+
+// Set to false to use sample data (for development)
+// Set to true to fetch live data from GitHub
+const USE_LIVE_DATA = true
 
 export function useStatusData() {
   const [data, setData] = useState<SystemStatus | null>(null)
@@ -22,42 +23,58 @@ export function useStatusData() {
       setLoading(true)
       setError(null)
       
-      if (API_ENDPOINT) {
-        // REAL DATA: Fetch from Carlo's endpoint
-        // Example: http://your-server:8080/clawdi-status.json
-        const response = await fetch(`${API_ENDPOINT}?t=${Date.now()}`)
-        if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const result: SystemStatus = await response.json()
-        
-        // Mark as live data
-        result.systemInfo = {
-          ...result.systemInfo,
-          dataSource: 'live-api',
-          dataFreshness: 'live'
+      if (USE_LIVE_DATA) {
+        try {
+          // Fetch live data from GitHub raw URL
+          // Add cache-busting timestamp
+          const response = await fetch(`${LIVE_DATA_URL}?t=${Date.now()}`, {
+            headers: {
+              'Accept': 'application/json',
+            },
+          })
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+          }
+          
+          const result: SystemStatus = await response.json()
+          
+          // Validate the data has required fields
+          if (!result.gateway || !result.subagents) {
+            throw new Error('Invalid data format received')
+          }
+          
+          setData(result)
+          setLastUpdated(new Date())
+        } catch (liveError) {
+          console.warn('Failed to fetch live data, falling back to sample:', liveError)
+          // Fall back to sample data on error
+          setData({
+            ...sampleData,
+            systemInfo: {
+              ...sampleData.systemInfo,
+              generatedAt: new Date().toISOString(),
+              dataSource: 'sample-data-fallback',
+              dataFreshness: 'static'
+            }
+          })
+          setError('Live data unavailable, showing sample data')
+          setLastUpdated(new Date())
         }
-        
-        setData(result)
       } else {
-        // SAMPLE DATA: Use static data for demo/development
-        // Simulate network delay
+        // Development mode: use sample data
         await new Promise(resolve => setTimeout(resolve, 500))
-        
-        const dynamicData: SystemStatus = {
+        setData({
           ...sampleData,
           systemInfo: {
             ...sampleData.systemInfo,
             generatedAt: new Date().toISOString()
           }
-        }
-        
-        setData(dynamicData)
+        })
+        setLastUpdated(new Date())
       }
-      
-      setLastUpdated(new Date())
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch data')
-      // Fallback to sample data on error
-      setData(sampleData)
     } finally {
       setLoading(false)
     }
@@ -74,25 +91,24 @@ export function useStatusData() {
 }
 
 /*
- * TO WIRE UP REAL DATA (Carlo's setup):
+ * SETUP INSTRUCTIONS FOR CARLO:
  * 
- * Option A: Cron job dumps JSON to web-accessible location
- * -----------------------------------------------------------------
- * 1. Carlo sets up cron to run: sessions_list > /var/www/clawdi-status.json
- * 2. Serves via nginx/Apache at: http://your-server/clawdi-status.json
- * 3. Set VITE_API_ENDPOINT=http://your-server/clawdi-status.json in .env
+ * 1. The dashboard now fetches from:
+ *    https://raw.githubusercontent.com/minicarlo/clawdi-status/main/status.json
  * 
- * Option B: Simple HTTP server
- * -----------------------------------------------------------------
- * 1. Create a simple Express/FastAPI server that returns session status
- * 2. Endpoint: GET /api/status returns SystemStatus JSON
- * 3. Set VITE_API_ENDPOINT=http://localhost:3001/api/status
+ * 2. Run the collector script via cron:
+ *    */1 * * * * cd /path/to/clawdi-status && ./scripts/collect-status.sh
  * 
- * Option C: Static file + manual update
- * -----------------------------------------------------------------
- * 1. Carlo exports session status periodically to a JSON file
- * 2. Commit/push to repo's public/ folder
- * 3. Fetch from relative path: /clawdi-status.json
+ * 3. The script will:
+ *    - Collect current system status
+ *    - Write to status.json
+ *    - Commit and push to GitHub
  * 
- * The expected JSON format is defined in src/types/index.ts (SystemStatus interface)
+ * 4. Dashboard will auto-refresh every 30s to get latest data
+ * 
+ * 5. To customize what data is collected, edit:
+ *    scripts/collect-status.sh
+ * 
+ * NOTE: GitHub has caching on raw files, so data may be ~1-2 min stale
+ * This is acceptable for a status dashboard
  */
