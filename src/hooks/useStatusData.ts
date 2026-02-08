@@ -96,8 +96,9 @@ export function useStatusData() {
  * 1. The dashboard now fetches from:
  *    https://raw.githubusercontent.com/minicarlo/clawdi-status/main/status.json
  * 
- * 2. Run the collector script via cron:
- *    */1 * * * * cd /path/to/clawdi-status && ./scripts/collect-status.sh
+ * 2. Run the collector script via cron (every minute):
+ *    * / 1 * * * * cd /path/to/clawdi-status && ./scripts/collect-status.sh
+ *    (remove spaces between asterisks - written this way to avoid comment issues)
  * 
  * 3. The script will:
  *    - Collect current system status
