@@ -1,5 +1,5 @@
 import { useStatusData } from '@/hooks/useStatusData'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme.tsx'
 import { GatewayCard } from '@/components/GatewayCard'
 import { NodesCard } from '@/components/NodesCard'
 import { SubagentsCard } from '@/components/SubagentsCard'

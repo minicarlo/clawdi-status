@@ -8,7 +8,8 @@ const REFRESH_INTERVAL = 30000 // 30 seconds
 // Option A: Carlo provides a JSON endpoint via cron job
 // Option B: Local HTTP server endpoint
 // Option C: Static JSON file served via nginx/Apache
-const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || null
+// @ts-ignore - Vite env
+const API_ENDPOINT = (import.meta as any).env?.VITE_API_ENDPOINT || null
 
 export function useStatusData() {
   const [data, setData] = useState<SystemStatus | null>(null)
