@@ -85,11 +85,14 @@ export function PermanentAgents({ agents }: PermanentAgentsProps) {
             )}
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-clawdi-text">Core Agents</h2>
+            <h2 className="text-2xl font-bold text-clawdi-text">Core Functions (Cron)</h2>
             <p className="text-sm text-clawdi-muted">
+              Scheduled maintenance and coordination tasks
+            </p>
+            <p className="text-xs text-clawdi-muted/70 mt-1">
               {allActive 
-                ? `All ${agents.length} permanent agents running smoothly` 
-                : `${agents.filter(a => a.status !== 'active').length} agent(s) need attention`
+                ? `All ${agents.length} cron jobs healthy` 
+                : `${agents.filter(a => a.status !== 'active').length} job(s) need attention`
               }
             </p>
           </div>

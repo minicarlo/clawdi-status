@@ -60,5 +60,7 @@ export interface SystemStatus {
   systemInfo: {
     dashboardVersion: string
     generatedAt: string
+    dataSource?: string
+    dataFreshness?: 'live' | 'static' | 'stale'
   }
 }

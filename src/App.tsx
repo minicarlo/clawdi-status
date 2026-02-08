@@ -4,7 +4,7 @@ import { NodesCard } from '@/components/NodesCard'
 import { SubagentsCard } from '@/components/SubagentsCard'
 import { ActivityCard } from '@/components/ActivityCard'
 import { PermanentAgents } from '@/components/PermanentAgents'
-import { Shell, Loader2, AlertCircle } from 'lucide-react'
+import { Shell, Loader2, AlertCircle, Database, Wifi, WifiOff } from 'lucide-react'
 
 function App() {
   const { data, loading, error, lastUpdated, refetch } = useStatusData()
@@ -40,6 +40,13 @@ function App() {
 
   if (!data) return null
 
+  // Determine data freshness indicator
+  const isLiveData = data.systemInfo.dataFreshness === 'live'
+  const isSampleData = data.systemInfo.dataSource === 'sample-data' || !data.systemInfo.dataSource
+  const DataIcon = isLiveData ? Wifi : isSampleData ? Database : WifiOff
+  const freshnessColor = isLiveData ? 'text-emerald-400' : isSampleData ? 'text-amber-400' : 'text-red-400'
+  const freshnessText = isLiveData ? 'Live Data' : isSampleData ? 'Sample Data' : 'Stale Data'
+
   return (
     <div className="min-h-screen bg-clawdi-bg">
       {/* Header */}
@@ -56,6 +63,10 @@ function App() {
               </div>
             </div>
             <div className="text-right">
+              <div className="flex items-center gap-2 justify-end mb-1">
+                <DataIcon className={`w-3 h-3 ${freshnessColor}`} />
+                <span className={`text-xs font-medium ${freshnessColor}`}>{freshnessText}</span>
+              </div>
               <p className="text-xs text-clawdi-muted">Dashboard v{data.systemInfo.dashboardVersion}</p>
               <p className="text-xs text-clawdi-muted">Auto-refresh: 30s</p>
             </div>
