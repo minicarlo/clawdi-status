@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -8,11 +9,12 @@ export default {
     extend: {
       colors: {
         clawdi: {
-          bg: '#0f172a',
-          card: '#1e293b',
-          border: '#334155',
-          text: '#f1f5f9',
-          muted: '#94a3b8',
+          // Dark mode colors (default)
+          bg: 'var(--clawdi-bg)',
+          card: 'var(--clawdi-card)',
+          border: 'var(--clawdi-border)',
+          text: 'var(--clawdi-text)',
+          muted: 'var(--clawdi-muted)',
           primary: '#3b82f6',
           success: '#22c55e',
           warning: '#f59e0b',
