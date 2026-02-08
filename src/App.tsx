@@ -3,6 +3,7 @@ import { GatewayCard } from '@/components/GatewayCard'
 import { NodesCard } from '@/components/NodesCard'
 import { SubagentsCard } from '@/components/SubagentsCard'
 import { ActivityCard } from '@/components/ActivityCard'
+import { PermanentAgents } from '@/components/PermanentAgents'
 import { Shell, Loader2, AlertCircle } from 'lucide-react'
 
 function App() {
@@ -64,6 +65,12 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Core Permanent Agents - Featured Section */}
+        <div className="mb-6">
+          <PermanentAgents agents={data.permanentAgents} />
+        </div>
+
+        {/* System Overview Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <GatewayCard 
             gateway={data.gateway} 

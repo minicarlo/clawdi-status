@@ -40,9 +40,21 @@ export interface Activity {
   error?: string
 }
 
+export interface PermanentAgent {
+  id: string
+  name: string
+  status: 'active' | 'idle' | 'error'
+  description: string
+  responsibilities: string[]
+  lastActivity: string
+  uptime: number
+  taskCount: number
+}
+
 export interface SystemStatus {
   gateway: GatewayStatus
   nodes: Node[]
+  permanentAgents: PermanentAgent[]
   subagents: Subagent[]
   recentActivity: Activity[]
   systemInfo: {

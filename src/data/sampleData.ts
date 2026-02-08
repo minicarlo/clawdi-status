@@ -10,6 +10,68 @@ export const sampleData: SystemStatus = {
     cpuUsage: 12.5,
     memoryUsage: 45.2
   },
+  permanentAgents: [
+    {
+      id: 'butler',
+      name: 'Butler',
+      status: 'active',
+      description: 'Personal assistant agent that handles day-to-day tasks, scheduling, and user interactions. Always ready to serve.',
+      responsibilities: [
+        'Handle user requests and commands',
+        'Manage scheduling and reminders',
+        'Coordinate between other agents',
+        'Maintain user context and preferences'
+      ],
+      lastActivity: '2026-02-08T14:30:00Z',
+      uptime: 172800,
+      taskCount: 2847
+    },
+    {
+      id: 'janitor',
+      name: 'Janitor',
+      status: 'active',
+      description: 'System maintenance agent that keeps everything clean, organized, and running smoothly.',
+      responsibilities: [
+        'Clean up temporary files and logs',
+        'Monitor disk space and resources',
+        'Archive old data and conversations',
+        'Perform routine maintenance tasks'
+      ],
+      lastActivity: '2026-02-08T14:25:00Z',
+      uptime: 172800,
+      taskCount: 1523
+    },
+    {
+      id: 'gatekeeper',
+      name: 'Gatekeeper',
+      status: 'active',
+      description: 'Security and access control agent that manages permissions, authentication, and system access.',
+      responsibilities: [
+        'Authenticate users and agents',
+        'Manage API keys and credentials',
+        'Monitor for security issues',
+        'Control access to sensitive operations'
+      ],
+      lastActivity: '2026-02-08T14:33:00Z',
+      uptime: 172800,
+      taskCount: 3892
+    },
+    {
+      id: 'manager',
+      name: 'Manager',
+      status: 'active',
+      description: 'Orchestration agent that coordinates all other agents, manages resources, and ensures system health.',
+      responsibilities: [
+        'Monitor agent health and status',
+        'Allocate resources to agents',
+        'Restart failed agents',
+        'Optimize system performance'
+      ],
+      lastActivity: '2026-02-08T14:34:00Z',
+      uptime: 172800,
+      taskCount: 4211
+    }
+  ],
   nodes: [
     {
       id: 'gateway-node',
