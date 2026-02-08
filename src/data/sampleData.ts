@@ -165,6 +165,16 @@ export const sampleData: SystemStatus = {
       lastActivity: '2026-02-08T09:57:00Z',
       description: 'Handles Telegram messaging',
       currentTask: 'Monitoring group chats'
+    },
+    {
+      id: 'hackathon-agent',
+      name: 'Hackathon Subagent',
+      type: 'hackathon',
+      status: 'running',
+      taskCount: 42,
+      lastActivity: '2026-02-08T17:05:00Z',
+      description: 'Manages hackathon projects, tracks submissions, and coordinates team collaboration',
+      currentTask: 'Processing hackathon dashboard updates'
     }
   ],
   recentActivity: [
@@ -221,6 +231,15 @@ export const sampleData: SystemStatus = {
       status: 'completed',
       timestamp: '2026-02-08T09:40:00Z',
       duration: 4.1
+    },
+    {
+      id: 'act-007',
+      subagent: 'Hackathon Subagent',
+      subagentId: 'hackathon-agent',
+      description: 'Updated hackathon project status dashboard',
+      status: 'completed',
+      timestamp: '2026-02-08T17:05:00Z',
+      duration: 1.2
     }
   ],
   systemInfo: {
