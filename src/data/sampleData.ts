@@ -115,6 +115,44 @@ export const sampleData: SystemStatus = {
       lastActivity: '2026-02-08T17:10:00Z',
       description: 'Handles Telegram messaging and user requests (Topic 3)',
       currentTask: 'Processing telegram messages'
+    },
+    {
+      id: 'hackathon-agent',
+      name: 'Hackathon Subagent',
+      type: 'hackathon',
+      status: 'running',
+      taskCount: 42,
+      lastActivity: '2026-02-08T17:05:00Z',
+      description: 'Manages hackathon projects and team coordination',
+      currentTask: 'Processing hackathon dashboard updates'
+    },
+    {
+      id: 'web-search-agent',
+      name: 'Web Search Agent',
+      type: 'search',
+      status: 'idle',
+      taskCount: 89,
+      lastActivity: '2026-02-08T16:30:00Z',
+      description: 'Performs web searches and research tasks'
+    },
+    {
+      id: 'file-agent',
+      name: 'File Operations Agent',
+      type: 'filesystem',
+      status: 'idle',
+      taskCount: 234,
+      lastActivity: '2026-02-08T16:45:00Z',
+      description: 'Manages file operations and cleanup tasks'
+    },
+    {
+      id: 'docker-agent',
+      name: 'Docker Agent',
+      type: 'container',
+      status: 'error',
+      taskCount: 12,
+      lastActivity: '2026-02-08T15:00:00Z',
+      description: 'Manages Docker containers and deployments',
+      errorMessage: 'Connection to Docker daemon failed'
     }
   ],
   recentActivity: [
@@ -122,37 +160,56 @@ export const sampleData: SystemStatus = {
       id: 'act-001',
       subagent: 'GitHub Agent',
       subagentId: 'github-agent',
-      description: 'Committed "Add Hackathon Subagent to sample data"',
+      description: 'Fixed UI issues: active badge positioning and subagent list',
       status: 'completed',
-      timestamp: '2026-02-08T17:08:00Z',
-      duration: 1.5
+      timestamp: '2026-02-08T17:37:00Z',
+      duration: 2.5
     },
     {
       id: 'act-002',
-      subagent: 'Butler Agent (Permanent)',
-      subagentId: 'butler-agent-permanent',
-      description: 'Processed telegram message about dashboard status',
+      subagent: 'Hackathon Subagent',
+      subagentId: 'hackathon-agent',
+      description: 'Updated hackathon project status dashboard',
       status: 'completed',
-      timestamp: '2026-02-08T17:07:00Z',
-      duration: 0.3
+      timestamp: '2026-02-08T17:35:00Z',
+      duration: 1.2
     },
     {
       id: 'act-003',
       subagent: 'GitHub Agent',
       subagentId: 'github-agent',
-      description: 'Fixed deployment workflow and enabled GitHub Pages',
+      description: 'Added theme toggle and manual refresh buttons',
       status: 'completed',
-      timestamp: '2026-02-08T16:58:00Z',
-      duration: 43.0
+      timestamp: '2026-02-08T17:15:00Z',
+      duration: 5.0
     },
     {
       id: 'act-004',
-      subagent: 'GitHub Agent',
-      subagentId: 'github-agent',
-      description: 'Created repository "clawdi-status"',
+      subagent: 'Butler Agent (Permanent)',
+      subagentId: 'butler-agent-permanent',
+      description: 'Processed telegram message about dashboard status',
       status: 'completed',
-      timestamp: '2026-02-08T10:04:00Z',
-      duration: 3.1
+      timestamp: '2026-02-08T17:10:00Z',
+      duration: 0.3
+    },
+    {
+      id: 'act-005',
+      subagent: 'File Agent',
+      subagentId: 'file-agent',
+      description: 'Cleaned up temporary build files',
+      status: 'completed',
+      timestamp: '2026-02-08T16:45:00Z',
+      duration: 1.8
+    },
+    {
+      id: 'act-006',
+      subagent: 'Docker Agent',
+      subagentId: 'docker-agent',
+      description: 'Attempted to restart nginx container',
+      status: 'failed',
+      timestamp: '2026-02-08T15:00:00Z',
+      duration: 5.2,
+      error: 'Docker daemon not responding'
     }
   ],
   systemInfo: {

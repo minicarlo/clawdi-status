@@ -133,7 +133,7 @@ export function PermanentAgents({ agents }: PermanentAgentsProps) {
             <div 
               key={agent.id}
               className={clsx(
-                "relative rounded-xl border-2 p-4 transition-all hover:scale-[1.02]",
+                "rounded-xl border-2 p-4 transition-all hover:scale-[1.02]",
                 colors.bg,
                 colors.border,
                 "shadow-lg",
@@ -141,27 +141,28 @@ export function PermanentAgents({ agents }: PermanentAgentsProps) {
                 agent.status === 'active' && "ring-2 ring-emerald-400/50"
               )}
             >
-              {/* Status Badge */}
-              <div className={clsx(
-                "absolute -top-3 -right-2 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1",
-                status.bg,
-                status.color
-              )}>
-                <StatusIcon className="w-3 h-3" />
-                {status.label}
-              </div>
-
-              {/* Agent Header */}
-              <div className="flex items-center gap-3 mb-3">
-                <div className={clsx(
-                  "p-2 rounded-lg",
-                  colors.bg
-                )}>
-                  <Icon className={clsx("w-6 h-6", colors.icon)} />
+              {/* Agent Header with Status Badge inline */}
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className={clsx(
+                    "p-2 rounded-lg",
+                    colors.bg
+                  )}>
+                    <Icon className={clsx("w-6 h-6", colors.icon)} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-clawdi-text text-lg">{agent.name}</h3>
+                    <p className="text-xs text-clawdi-muted font-mono">{agent.id}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-clawdi-text text-lg">{agent.name}</h3>
-                  <p className="text-xs text-clawdi-muted font-mono">{agent.id}</p>
+                {/* Status Badge - positioned inline at top right */}
+                <div className={clsx(
+                  "px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 flex-shrink-0 ml-2",
+                  status.bg,
+                  status.color
+                )}>
+                  <StatusIcon className="w-3 h-3" />
+                  {status.label}
                 </div>
               </div>
 
