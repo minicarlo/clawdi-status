@@ -5,7 +5,6 @@ import {
   Play, 
   Pause, 
   AlertCircle, 
-  CheckCircle2,
   Clock,
   AlertTriangle
 } from 'lucide-react'
